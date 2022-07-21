@@ -1,0 +1,505 @@
+A company's stock share is a piece of the company more precisely:
+An investor can buy a stock and sell it later. If the stock price increases, the investor profits,
+If it decreases,the investor with incur a loss. Determining the stock price is complex; it 
+depends on the number of outstanding shares, the size of the company's future profits, and 
+much more. People trade stocks throughout the day the stock ticker is a report of the price 
+of a certain stock, updated continuously throughout the trading session by the 
+various stock market exchanges.
+!pip install yfinance==0.1.67
+#!pip install pandas==1.3.3
+Collecting yfinance==0.1.67
+ Downloading yfinance-0.1.67-py2.py3-none-any.whl (25 kB)
+Requirement already satisfied: pandas>=0.24 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+yfinance==0.1.67) (1.3.5)
+Requirement already satisfied: requests>=2.20 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+yfinance==0.1.67) (2.28.1)
+Requirement already satisfied: lxml>=4.5.1 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+yfinance==0.1.67) (4.9.1)
+Collecting multitasking>=0.0.7
+ Downloading multitasking-0.0.11-py3-none-any.whl (8.5 kB)
+Requirement already satisfied: numpy>=1.15 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+yfinance==0.1.67) (1.21.6)
+Requirement already satisfied: python-dateutil>=2.7.3 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+pandas>=0.24->yfinance==0.1.67) (2.8.2)
+Requirement already satisfied: pytz>=2017.3 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+pandas>=0.24->yfinance==0.1.67) (2022.1)
+Requirement already satisfied: charset-normalizer<3,>=2 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+requests>=2.20->yfinance==0.1.67) (2.1.0)
+Requirement already satisfied: certifi>=2017.4.17 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+requests>=2.20->yfinance==0.1.67) (2022.6.15)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+requests>=2.20->yfinance==0.1.67) (1.26.9)
+Requirement already satisfied: idna<4,>=2.5 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+requests>=2.20->yfinance==0.1.67) (3.3)
+Requirement already satisfied: six>=1.5 in 
+/home/jupyterlab/conda/envs/python/lib/python3.7/site-packages (from 
+python-dateutil>=2.7.3->pandas>=0.24->yfinance==0.1.67) (1.16.0)
+Installing collected packages: multitasking, yfinance
+Successfully installed multitasking-0.0.11 yfinance-0.1.67
+import yfinance as yf
+import pandas as pd
+Using the yfinance Library to Extract Stock Data
+Using the Ticker module we can create an object that will allow us to access functions to 
+extract data. To do this we need to provide the ticker symbol for the stock, here the 
+company is Apple and the ticker symbol is AAPL.
+apple = yf.Ticker("AAPL")
+Now we can access functions and variables to extract the type of data we need. You can 
+view them and what they represent here https://aroussi.com/post/python-yahoo-finance.
+Stock Info
+Using the attribute info we can extract information about the stock as a Python dictionary.
+apple_info=apple.info
+apple_info
+{'zip': '95014',
+ 'sector': 'Technology',
+ 'fullTimeEmployees': 154000,
+ 'longBusinessSummary': 'Apple Inc. designs, manufactures, and markets
+smartphones, personal computers, tablets, wearables, and accessories 
+worldwide. It also sells various related services. In addition, the 
+company offers iPhone, a line of smartphones; Mac, a line of personal 
+computers; iPad, a line of multi-purpose tablets; AirPods Max, an 
+over-ear wireless headphone; and wearables, home, and accessories 
+comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, 
+and iPod touch. Further, it provides AppleCare support services; cloud
+services store services; and operates various platforms, including the
+App Store that allow customers to discover and download applications 
+and digital content, such as books, music, video, games, and podcasts.
+Additionally, the company offers various services, such as Apple 
+Arcade, a game subscription service; Apple Music, which offers users a
+curated listening experience with on-demand radio stations; Apple 
+News+, a subscription news and magazine service; Apple TV+, which 
+offers exclusive original content; Apple Card, a co-branded credit 
+card; and Apple Pay, a cashless payment service, as well as licenses 
+its intellectual property. The company serves consumers, and small and
+mid-sized businesses; and the education, enterprise, and government 
+markets. It distributes third-party applications for its products 
+through the App Store. The company also sells its products through its
+retail and online stores, and direct sales force; and third-party 
+cellular network carriers, wholesalers, retailers, and resellers. 
+Apple Inc. was incorporated in 1977 and is headquartered in Cupertino,
+California.',
+ 'city': 'Cupertino',
+ 'phone': '408 996 1010',
+ 'state': 'CA',
+ 'country': 'United States',
+ 'companyOfficers': [],
+ 'website': 'https://www.apple.com',
+ 'maxAge': 1,
+ 'address1': 'One Apple Park Way',
+ 'industry': 'Consumer Electronics',
+ 'ebitdaMargins': 0.33842,
+ 'profitMargins': 0.26407,
+ 'grossMargins': 0.43322,
+ 'operatingCashflow': 116425998336,
+ 'revenueGrowth': 0.086,
+ 'operatingMargins': 0.30926,
+ 'ebitda': 130633998336,
+ 'targetLowPrice': 130,
+ 'recommendationKey': 'buy',
+ 'grossProfits': 152836000000,
+ 'freeCashflow': 84384628736,
+ 'targetMedianPrice': 185,
+ 'currentPrice': 155.335,
+ 'earningsGrowth': 0.086,
+ 'currentRatio': 0.927,
+ 'returnOnAssets': 0.21695,
+ 'numberOfAnalystOpinions': 43,
+ 'targetMeanPrice': 183.29,
+ 'debtToEquity': 178.016,
+ 'returnOnEquity': 1.49271,
+ 'targetHighPrice': 214,
+ 'totalCash': 51511001088,
+ 'totalDebt': 119980998656,
+ 'totalRevenue': 386017001472,
+ 'totalCashPerShare': 3.183,
+ 'financialCurrency': 'USD',
+ 'revenuePerShare': 23.471,
+ 'quickRatio': 0.76,
+ 'recommendationMean': 1.9,
+ 'exchange': 'NMS',
+ 'shortName': 'Apple Inc.',
+ 'longName': 'Apple Inc.',
+ 'exchangeTimezoneName': 'America/New_York',
+ 'exchangeTimezoneShortName': 'EDT',
+ 'isEsgPopulated': False,
+ 'gmtOffSetMilliseconds': '-14400000',
+ 'quoteType': 'EQUITY',
+ 'symbol': 'AAPL',
+ 'messageBoardId': 'finmb_24937',
+ 'market': 'us_market',
+ 'annualHoldingsTurnover': None,
+ 'enterpriseToRevenue': 6.594,
+ 'beta3Year': None,
+ 'enterpriseToEbitda': 19.485,
+ '52WeekChange': 0.042506814,
+ 'morningStarRiskRating': None,
+ 'forwardEps': 6.51,
+ 'revenueQuarterlyGrowth': None,
+ 'sharesOutstanding': 16185199616,
+ 'fundInceptionDate': None,
+ 'annualReportExpenseRatio': None,
+ 'totalAssets': None,
+ 'bookValue': 4.158,
+ 'sharesShort': 112994371,
+ 'sharesPercentSharesOut': 0.0069999998,
+ 'fundFamily': None,
+ 'lastFiscalYearEnd': 1632528000,
+ 'heldPercentInstitutions': 0.59738,
+ 'netIncomeToCommon': 101934997504,
+ 'trailingEps': 6.15,
+ 'lastDividendValue': 0.23,
+ 'SandP52WeekChange': -0.09332156,
+ 'priceToBook': 37.358105,
+ 'heldPercentInsiders': 0.00072999997,
+ 'nextFiscalYearEnd': 1695600000,
+ 'yield': None,
+ 'mostRecentQuarter': 1648252800,
+ 'shortRatio': 1.34,
+ 'sharesShortPreviousMonthDate': 1653955200,
+ 'floatShares': 16168348412,
+ 'beta': 1.19455,
+ 'enterpriseValue': 2545450221568,
+ 'priceHint': 2,
+ 'threeYearAverageReturn': None,
+ 'lastSplitDate': 1598832000,
+ 'lastSplitFactor': '4:1',
+ 'legalType': None,
+ 'lastDividendDate': 1651795200,
+ 'morningStarOverallRating': None,
+ 'earningsQuarterlyGrowth': 0.058,
+ 'priceToSalesTrailing12Months': 6.513208,
+ 'dateShortInterest': 1656547200,
+ 'pegRatio': 2.52,
+ 'ytdReturn': None,
+ 'forwardPE': 23.86175,
+ 'lastCapGain': None,
+ 'shortPercentOfFloat': 0.0069999998,
+ 'sharesShortPriorMonth': 113283277,
+ 'impliedSharesOutstanding': 0,
+ 'category': None,
+ 'fiveYearAverageReturn': None,
+ 'previousClose': 153.04,
+ 'regularMarketOpen': 154.5,
+ 'twoHundredDayAverage': 158.4493,
+ 'trailingAnnualDividendYield': 0.005750131,
+ 'payoutRatio': 0.14310001,
+ 'volume24Hr': None,
+ 'regularMarketDayHigh': 155.57,
+ 'navPrice': None,
+ 'averageDailyVolume10Day': 72599720,
+ 'regularMarketPreviousClose': 153.04,
+ 'fiftyDayAverage': 143.1614,
+ 'trailingAnnualDividendRate': 0.88,
+ 'open': 154.5,
+ 'toCurrency': None,
+ 'averageVolume10days': 72599720,
+ 'expireDate': None,
+ 'algorithm': None,
+ 'dividendRate': 0.92,
+ 'exDividendDate': 1651795200,
+ 'circulatingSupply': None,
+ 'startDate': None,
+ 'regularMarketDayLow': 151.9401,
+ 'currency': 'USD',
+ 'trailingPE': 25.258535,
+ 'regularMarketVolume': 56849550,
+ 'lastMarket': None,
+ 'maxSupply': None,
+ 'openInterest': None,
+ 'marketCap': 2514208948224,
+ 'volumeAllCurrencies': None,
+ 'strikePrice': None,
+ 'averageVolume': 93789221,
+ 'dayLow': 151.9401,
+ 'ask': 154.9,
+ 'askSize': 800,
+ 'volume': 56849550,
+ 'fiftyTwoWeekHigh': 182.94,
+ 'fromCurrency': None,
+ 'fiveYearAvgDividendYield': 1.07,
+ 'fiftyTwoWeekLow': 129.04,
+ 'bid': 154.89,
+ 'tradeable': False,
+ 'dividendYield': 0.006,
+ 'bidSize': 1200,
+ 'dayHigh': 155.57,
+ 'coinMarketCapLink': None,
+ 'regularMarketPrice': 155.34,
+ 'preMarketPrice': 154.6,
+ 'logo_url': 'https://logo.clearbit.com/apple.com'}
+We can get the 'country' using the key country
+apple_info['country']
+'United States'
+Extracting Share Price
+A share is the single smallest part of a company's stock that you can buy, the prices of these
+shares fluctuate over time. Using the history() method we can get the share price of the 
+stock over a certain period of time. Using the period parameter we can set how far back 
+from the present to get data. The options for period are 1 day (1d), 5d, 1 month (1mo) , 
+3mo, 6mo, 1 year (1y), 2y, 5y, 10y, ytd, and max.
+apple_share_price_data = apple.history(period="max")
+The format that the data is returned in is a Pandas DataFrame. With the Date as the index 
+the share Open, High, Low, Close, Volume, and Stock Splits are given for each day.
+apple_share_price_data.head()
+ Open High Low Close Volume 
+Dividends \
+Date 
+1980-12-12 0.100178 0.100614 0.100178 0.100178 469033600 
+0.0 
+1980-12-15 0.095388 0.095388 0.094952 0.094952 175884800 
+0.0 
+1980-12-16 0.088418 0.088418 0.087983 0.087983 105728000 
+0.0 
+1980-12-17 0.090160 0.090596 0.090160 0.090160 86441600 
+0.0 
+1980-12-18 0.092774 0.093210 0.092774 0.092774 73449600 
+0.0 
+ Stock Splits 
+Date 
+1980-12-12 0.0 
+1980-12-15 0.0 
+1980-12-16 0.0 
+1980-12-17 0.0 
+1980-12-18 0.0 
+We can reset the index of the DataFrame with the reset_index function. We also set the 
+inplace paramter to True so the change takes place to the DataFrame itself.
+apple_share_price_data.reset_index(inplace=True)
+We can plot the Open price against the Date:
+apple_share_price_data.plot(x="Date", y="Open")
+<AxesSubplot:xlabel='Date'>
+Extracting Dividends
+Dividends are the distribution of a companys profits to shareholders. In this case they are 
+defined as an amount of money returned per share an investor owns. Using the variable 
+dividends we can get a dataframe of the data. The period of the data is given by the period
+defined in the 'history` function.
+apple.dividends
+Date
+1987-05-11 0.000536
+1987-08-10 0.000536
+1987-11-17 0.000714
+1988-02-12 0.000714
+1988-05-16 0.000714
+ ... 
+2021-05-07 0.220000
+2021-08-06 0.220000
+2021-11-05 0.220000
+2022-02-04 0.220000
+2022-05-06 0.230000
+Name: Dividends, Length: 75, dtype: float64
+We can plot the dividends overtime:
+apple.dividends.plot()
+<AxesSubplot:xlabel='Date'>
+Exercise
+Now using the Ticker module create an object for AMD (Advanced Micro Devices) with 
+the ticker symbol is AMD called; name the object amd.
+amd = yf.Ticker("AMD")
+amd_info=amd.info
+amd_info
+{'zip': '95054',
+ 'sector': 'Technology',
+ 'fullTimeEmployees': 15500,
+ 'longBusinessSummary': 'Advanced Micro Devices, Inc. operates as a 
+semiconductor company worldwide. The company operates in two segments,
+Computing and Graphics; and Enterprise, Embedded and Semi-Custom. Its 
+products include x86 microprocessors as an accelerated processing 
+unit, chipsets, discrete and integrated graphics processing units 
+(GPUs), data center and professional GPUs, and development services; 
+and server and embedded processors, and semi-custom System-on-Chip 
+(SoC) products, development services, and technology for game 
+consoles. The company provides processors for desktop and notebook 
+personal computers under the AMD Ryzen, AMD Ryzen PRO, Ryzen 
+Threadripper, Ryzen Threadripper PRO, AMD Athlon, AMD Athlon PRO, AMD 
+FX, AMD A-Series, and AMD PRO A-Series processors brands; discrete 
+GPUs for desktop and notebook PCs under the AMD Radeon graphics, AMD 
+Embedded Radeon graphics brands; and professional graphics products 
+under the AMD Radeon Pro and AMD FirePro graphics brands. It also 
+offers Radeon Instinct, Radeon PRO V-series, and AMD Instinct 
+accelerators for servers; chipsets under the AMD trademark; 
+microprocessors for servers under the AMD EPYC; embedded processor 
+solutions under the AMD Athlon, AMD Geode, AMD Ryzen, AMD EPYC, AMD RSeries, and G-Series processors brands; and customer-specific 
+solutions based on AMD CPU, GPU, and multi-media technologies, as well
+as semi-custom SoC products. It serves original equipment 
+manufacturers, public cloud service providers, original design 
+manufacturers, system integrators, independent distributors, online 
+retailers, and add-in-board manufacturers through its direct sales 
+force, independent distributors, and sales representatives. The 
+company was incorporated in 1969 and is headquartered in Santa Clara, 
+California.',
+ 'city': 'Santa Clara',
+ 'phone': '408 749 4000',
+ 'state': 'CA',
+ 'country': 'United States',
+ 'companyOfficers': [],
+ 'website': 'https://www.amd.com',
+ 'maxAge': 1,
+ 'address1': '2485 Augustine Drive',
+ 'industry': 'Semiconductors',
+ 'ebitdaMargins': 0.25736,
+ 'profitMargins': 0.17975001,
+ 'grossMargins': 0.49513,
+ 'operatingCashflow': 3617999872,
+ 'revenueGrowth': 0.709,
+ 'operatingMargins': 0.20857,
+ 'ebitda': 4857999872,
+ 'targetLowPrice': 85,
+ 'recommendationKey': 'buy',
+ 'grossProfits': 7929000000,
+ 'freeCashflow': 3261874944,
+ 'targetMedianPrice': 120,
+ 'currentPrice': 91.09,
+ 'earningsGrowth': 0.244,
+ 'currentRatio': 2.395,
+ 'returnOnAssets': 0.06394,
+ 'numberOfAnalystOpinions': 37,
+ 'targetMeanPrice': 128.3,
+ 'debtToEquity': 3.898,
+ 'returnOnEquity': 0.10979,
+ 'targetHighPrice': 230,
+ 'totalCash': 6531999744,
+ 'totalDebt': 2156999936,
+ 'totalRevenue': 18876000256,
+ 'totalCashPerShare': 4.031,
+ 'financialCurrency': 'USD',
+ 'revenuePerShare': 15.005,
+ 'quickRatio': 1.83,
+ 'recommendationMean': 2.1,
+ 'exchange': 'NMS',
+ 'shortName': 'Advanced Micro Devices, Inc.',
+ 'longName': 'Advanced Micro Devices, Inc.',
+ 'exchangeTimezoneName': 'America/New_York',
+ 'exchangeTimezoneShortName': 'EDT',
+ 'isEsgPopulated': False,
+ 'gmtOffSetMilliseconds': '-14400000',
+ 'quoteType': 'EQUITY',
+ 'symbol': 'AMD',
+ 'messageBoardId': 'finmb_168864',
+ 'market': 'us_market',
+ 'annualHoldingsTurnover': None,
+ 'enterpriseToRevenue': 7.446,
+ 'beta3Year': None,
+ 'enterpriseToEbitda': 28.931,
+ '52WeekChange': -0.019515395,
+ 'morningStarRiskRating': None,
+ 'forwardEps': 4.91,
+ 'revenueQuarterlyGrowth': None,
+ 'sharesOutstanding': 1620509952,
+ 'fundInceptionDate': None,
+ 'annualReportExpenseRatio': None,
+ 'totalAssets': None,
+ 'bookValue': 34.156,
+ 'sharesShort': 32592109,
+ 'sharesPercentSharesOut': 0.0201,
+ 'fundFamily': None,
+ 'lastFiscalYearEnd': 1640390400,
+ 'heldPercentInstitutions': 0.68289,
+ 'netIncomeToCommon': 3392999936,
+ 'trailingEps': 2.79,
+ 'lastDividendValue': None,
+ 'SandP52WeekChange': -0.09332156,
+ 'priceToBook': 2.6668813,
+ 'heldPercentInsiders': 0.0032600001,
+ 'nextFiscalYearEnd': 1703462400,
+ 'yield': None,
+ 'mostRecentQuarter': 1648252800,
+ 'shortRatio': 0.33,
+ 'sharesShortPreviousMonthDate': 1653955200,
+ 'floatShares': 1612778081,
+ 'beta': 1.940825,
+ 'enterpriseValue': 140547014656,
+ 'priceHint': 2,
+ 'threeYearAverageReturn': None,
+ 'lastSplitDate': 966902400,
+ 'lastSplitFactor': '2:1',
+ 'legalType': None,
+ 'lastDividendDate': None,
+ 'morningStarOverallRating': None,
+ 'earningsQuarterlyGrowth': 0.416,
+ 'priceToSalesTrailing12Months': 7.8201013,
+ 'dateShortInterest': 1656547200,
+ 'pegRatio': 0.72,
+ 'ytdReturn': None,
+ 'forwardPE': 18.551935,
+ 'lastCapGain': None,
+ 'shortPercentOfFloat': 0.0202,
+ 'sharesShortPriorMonth': 40384382,
+ 'impliedSharesOutstanding': 0,
+ 'category': None,
+ 'fiveYearAverageReturn': None,
+ 'previousClose': 89.43,
+ 'regularMarketOpen': 89.6,
+ 'twoHundredDayAverage': 113.6783,
+ 'trailingAnnualDividendYield': 0,
+ 'payoutRatio': 0,
+ 'volume24Hr': None,
+ 'regularMarketDayHigh': 91.58,
+ 'navPrice': None,
+ 'averageDailyVolume10Day': 82362450,
+ 'regularMarketPreviousClose': 89.43,
+ 'fiftyDayAverage': 88.9632,
+ 'trailingAnnualDividendRate': 0,
+ 'open': 89.6,
+ 'toCurrency': None,
+ 'averageVolume10days': 82362450,
+ 'expireDate': None,
+ 'algorithm': None,
+ 'dividendRate': None,
+ 'exDividendDate': 798940800,
+ 'circulatingSupply': None,
+ 'startDate': None,
+ 'regularMarketDayLow': 88.22,
+ 'currency': 'USD',
+ 'trailingPE': 32.648746,
+ 'regularMarketVolume': 89186624,
+ 'lastMarket': None,
+ 'maxSupply': None,
+ 'openInterest': None,
+ 'marketCap': 147612237824,
+ 'volumeAllCurrencies': None,
+ 'strikePrice': None,
+ 'averageVolume': 107156091,
+ 'dayLow': 88.22,
+ 'ask': 90.81,
+ 'askSize': 800,
+ 'volume': 89186624,
+ 'fiftyTwoWeekHigh': 164.46,
+ 'fromCurrency': None,
+ 'fiveYearAvgDividendYield': None,
+ 'fiftyTwoWeekLow': 71.6,
+ 'bid': 90.74,
+ 'tradeable': False,
+ 'dividendYield': None,
+ 'bidSize': 900,
+ 'dayHigh': 91.58,
+ 'coinMarketCapLink': None,
+ 'regularMarketPrice': 91.09,
+ 'preMarketPrice': 89.63,
+ 'logo_url': 'https://logo.clearbit.com/amd.com'}
+Question 1 Use the key 'country' to find the country the stock belongs to, remember it as it 
+will be a quiz question.
+amd_info['country']
+'United States'
+Question 2 Use the key 'sector' to find the sector the stock belongs to, remember it as it will
+be a quiz question.
+amd_info['sector']
+'Technology'
+Question 3 Obtain stock data for AMD using the history function, set the period to max. 
+Find the Volume traded on the first day (first row).
+max(amd.history(period="max")['Volume'])
+325058400
+Joseph Santarcangelo has a PhD in Electrical Engineering, his research focused on using 
+machine learning, signal processing, and computer vision to determine how videos impact 
+human cognition. Joseph has been working for IBM since he completed his PhD.
+Azim Hirjani
+Change Log
+Date (YYYY-MM-DD)
+2020-11-10
+2020-08-27
+ © IBM Corporation 2020. All rights reserved.
